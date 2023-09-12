@@ -15,9 +15,4 @@ public class InfoObject {
         System.out.println("The speed is " + speed + " km/h" );
         System.out.println("The color is " + color);
     }
-
-    public static void main(String[] args) {
-        InfoObject Car = new InfoObject(60, "Black");
-        Car.printState();
-    }
 }
