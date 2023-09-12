@@ -3,10 +3,10 @@ public class InfoObject {
     private int speed;
     private String color;
 
-    public InfoObject(boolean moving, int speed, String color) {
-        this.moving = moving;
+    public InfoObject(int speed, String color) {
         this.speed = speed;
         this.color = color;
+        this.moving = speed>0;
     }
 
     public void printState() {
@@ -17,7 +17,7 @@ public class InfoObject {
     }
 
     public static void main(String[] args) {
-        InfoObject Car = new InfoObject(true, 60, "Black");
+        InfoObject Car = new InfoObject(60, "Black");
         Car.printState();
     }
 }
