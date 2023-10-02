@@ -1,5 +1,6 @@
 package Lab2;
 
+
 public enum StudyField {
     MECHANICAL_ENGENEERING,
     SOFTWARE_ENGENEERING,

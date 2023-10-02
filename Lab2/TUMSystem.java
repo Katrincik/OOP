@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class TUMSystem {
 
     private static List<Faculty> faculties = new ArrayList<>();
@@ -186,7 +187,7 @@ public class TUMSystem {
             }
         }
     }
-    
+
     private static void displayFacultiesByField(String input) {
         String[] parts = input.split("/");
         
