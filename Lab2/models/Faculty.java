@@ -1,4 +1,7 @@
-package Lab2;
+package Lab2.models;
+
+import Lab2.models.Student;
+import Lab2.models.StudyField;
 
 import java.util.ArrayList;
 import java.util.List;
