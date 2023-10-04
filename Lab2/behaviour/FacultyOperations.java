@@ -10,7 +10,19 @@ import java.util.Scanner;
 import static Lab2.behaviour.TUMSystem.faculties;
 
 public class FacultyOperations {
-    static void createAndAssignStudent(String input) {
+
+    private static Student findStudentByEmail(String email) {
+        for (Faculty faculty : faculties) {
+            for (Student student : faculty.getStudents()) {
+                if (student.getEmail().equals(email)) {
+                    return student;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void createAndAssignStudent(String input) {
         String[] parts = input.split("/");
 
         if (parts.length == 8) {
@@ -18,17 +30,21 @@ public class FacultyOperations {
             String firstName = parts[2];
             String lastName = parts[3];
             String email = parts[4];
-            String dateofbirthStr = parts[5] + "/" + parts[6] + "/" + parts[7];
+            String dateOfBirthStr = parts[5] + "/" + parts[6] + "/" + parts[7];
             LocalDate enrollmentDate = LocalDate.now();
 
             Faculty faculty = findFacultyByAbbreviation(facultyAbbreviation);
 
             if (faculty != null) {
-                Student student = new Student(firstName, lastName, email, dateofbirthStr, enrollmentDate, false);
+                if (faculty.hasStudentWithEmail(email)) {
+                    System.out.println("A student with the email " + email + " already exists in faculty " + facultyAbbreviation + ".\n");
+                } else {
+                    Student student = new Student(firstName, lastName, email, dateOfBirthStr, enrollmentDate, false);
 
-                faculty.addStudent(student);
+                    faculty.addStudent(student);
 
-                System.out.println("Student created and assigned to faculty " + facultyAbbreviation + ".\n");
+                    System.out.println("Student created and assigned to faculty " + facultyAbbreviation + ".\n");
+                }
             } else {
                 System.out.println("Faculty with abbreviation " + facultyAbbreviation + " not found.\n");
             }
@@ -37,64 +53,29 @@ public class FacultyOperations {
         }
     }
 
-    private static Faculty findFacultyByAbbreviation(String abbreviation) {
-        for (Faculty faculty : faculties) {
-            if (faculty.getAbbreviation().equals(abbreviation)) {
-                return faculty;
-            }
-        }
-        return null;
-    }
-
-    static void graduateStudent(String input) {
+    public void graduateStudent(String input) {
         String[] parts = input.split("/");
 
         if (parts.length == 2) {
             String studentEmail = parts[1];
+            Student student = findStudentByEmail(studentEmail);
 
-            Faculty faculty = findFacultyByStudentEmail(studentEmail);
-
-            if (faculty != null) {
-                Student studentToRemove = null;
-
-                for (Student student : faculty.getStudents()) {
-                    if (student.getEmail().equals(studentEmail)) {
-                        studentToRemove = student;
-                        break;
-                    }
-                }
-
-                if (studentToRemove != null) {
-                    studentToRemove.setGraduated(true);
-                    System.out.println("Student with email " + studentEmail + " has been graduated from " + faculty.getName() + ".\n");
-                } else {
-                    System.out.println("Student with email " + studentEmail + " not found in " + faculty.getName() + ".\n");
-                }
+            if (student != null) {
+                student.setGraduated(true);
+                System.out.println("Student with email " + studentEmail + " has been graduated.\n");
             } else {
-                System.out.println("No faculty found for the student with email " + studentEmail + ".\n");
+                System.out.println("Student with email " + studentEmail + " not found.\n");
             }
         } else {
             System.out.println("Invalid command format. Use: gs/<email>\n");
         }
     }
 
-    private static Faculty findFacultyByStudentEmail(String studentEmail) {
-        for (Faculty faculty : faculties) {
-            for (Student student : faculty.getStudents()) {
-                if (student.getEmail().equals(studentEmail)) {
-                    return faculty;
-                }
-            }
-        }
-        return null;
-    }
-
-    static void displayCurrentEnrolledStudents(String input) {
+    public void displayCurrentEnrolledStudents(String input) {
         String[] parts = input.split("/");
 
         if (parts.length == 2) {
             String facultyAbbreviation = parts[1];
-
             Faculty faculty = findFacultyByAbbreviation(facultyAbbreviation);
 
             if (faculty != null) {
@@ -107,7 +88,7 @@ public class FacultyOperations {
                         System.out.println("Student Name: " + student.getFirstName() + " " + student.getLastName());
                         System.out.println("Student Email: " + student.getEmail());
                         System.out.println("Date of birth: " + student.getDateOfBirth());
-                        System.out.println("Enrollment Date: " + student.getEnrollmentDate() +"\n");
+                        System.out.println("Enrollment Date: " + student.getEnrollmentDate() + "\n");
                         enrolledStudentsFound = true;
                     }
                 }
@@ -121,6 +102,15 @@ public class FacultyOperations {
         } else {
             System.out.println("Invalid command format. Use: ds/<faculty abbreviation>\n");
         }
+    }
+
+    private static Faculty findFacultyByAbbreviation(String abbreviation) {
+        for (Faculty faculty : faculties) {
+            if (faculty.getAbbreviation().equals(abbreviation)) {
+                return faculty;
+            }
+        }
+        return null;
     }
 
     static void displayGraduates(String input) {
@@ -202,12 +192,16 @@ public class FacultyOperations {
             System.out.println("""
                     Faculty Operations:
                     What do you want to do?
+                    
                     ns/<faculty abbreviation>/<first name>/<last name>/<email>/<day>/<month>/<year> - create student
                     gs/<email> - (g)raduate (s)tudent
                     ds/<faculty abbreviation> - (d)isplay enrolled students
                     dg/<faculty abbreviation> - (d)isplay (g)raduated students
                     bf/<faculty abbreviation>/<email> - check if student (b)elongs to (f)aculty
-                    b - Back""");
+                    
+                    b - Back
+                    q - Quit Program
+                    """);
 
             System.out.print("your input> ");
             String choiceFaculty = scanner.nextLine().trim();

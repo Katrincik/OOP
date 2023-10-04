@@ -22,12 +22,18 @@ public class GeneralOperations {
             try {
                 field = StudyField.valueOf(facultyfield);
             } catch (IllegalArgumentException e) {
-                System.out.println("Invalid field. Please use one of: MECHANICAL_ENGINEERING, SOFTWARE_ENGINEERING, FOOD_TECHNOLOGY, URBANISM_ARCHITECTURE, VETERINARY_MEDICINE");
+                System.out.println("Invalid field. Please use one of: MECHANICAL_ENGINEERING, SOFTWARE_ENGINEERING, FOOD_TECHNOLOGY, URBANISM_ARCHITECTURE, VETERINARY_MEDICINE\n");
                 return;
             }
 
-            Faculty newFaculty = new Faculty(facultyName, facultyAbbreviation, field);
+            for (Faculty existingFaculty : faculties) {
+                if (existingFaculty.getName().equals(facultyName) && existingFaculty.getAbbreviation().equals(facultyAbbreviation)) {
+                    System.out.println("Faculty with the same name and abbreviation already exists.\n");
+                    return;
+                }
+            }
 
+            Faculty newFaculty = new Faculty(facultyName, facultyAbbreviation, field);
             faculties.add(newFaculty);
 
             System.out.println("Faculty created successfully!\n");
@@ -111,12 +117,15 @@ public class GeneralOperations {
             System.out.println("""
                     General Operations
                     What do you want to do?
+                    
                     nf/<faculty name>/<faculty abbreviation>/<field> - create faculty
                     ss/<student email> - search student and show faculty
                     df - display faculties
                     df/<field> - display all faculties of a field
+                    
                     b - Back
-                    q - Quit Program""");
+                    q - Quit Program
+                    """);
 
             System.out.print("your input> ");
             String input = scanner.nextLine().trim();

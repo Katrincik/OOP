@@ -1,8 +1,5 @@
 package Lab2.models;
 
-import Lab2.models.Student;
-import Lab2.models.StudyField;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +14,7 @@ public class Faculty {
         this.abbreviation = abbreviation;
         this.studyField = studyField;
         this.students = new ArrayList<>();
+
     }
 
     public List<Student> getStudents() {
@@ -39,8 +37,13 @@ public class Faculty {
         students.add(student);
     }
 
-    public void graduateStudent(Student student) {
-        students.remove(student);
+    public boolean hasStudentWithEmail(String email) {
+        for (Student student : students) {
+            if (student.getEmail().equals(email)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

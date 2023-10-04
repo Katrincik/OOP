@@ -7,10 +7,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TUMSystem {
-    static final List<Faculty> faculties = new ArrayList<>();
+    public static final List<Faculty> faculties = new ArrayList<>();
     static final FacultyOperations facultyManager = new FacultyOperations();
     static final GeneralOperations generalManager = new GeneralOperations();
-    static final StudentOperations studentManager = new StudentOperations();
     static final Scanner myInput = new Scanner(System.in);
 
     public static void run() {
@@ -28,8 +27,6 @@ public class TUMSystem {
                 case "g":
                     generalManager.generalOperations(myInput);
                     break;
-                case "s":
-                    studentManager.studentOperations();
                 case "q":
                     System.out.println("Exiting program.");
                     System.exit(0);
@@ -40,10 +37,14 @@ public class TUMSystem {
     }
 
     private static void displayMainMenu() {
-        System.out.print("\nWhat do you want to do?\n"
-                + "g - General operations\n"
-                + "f - Faculty operations\n"
-                + "q - Quit Program\n"
-                + "your input> ");
+        System.out.print("""
+
+                What do you want to do?
+                g - General operations
+                f - Faculty operations
+                
+                q - Quit Program
+                
+                your input>\s""");
     }
 }
