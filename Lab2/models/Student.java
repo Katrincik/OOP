@@ -7,15 +7,17 @@ public class Student {
     private final String firstName;
     private final String lastName;
     private final String email;
+    private final LocalDate dateofbirth;
     private final LocalDate enrollmentDate;
-    // private final LocalDate dateofbirth;
+
     private Boolean graduated;
 
-    public Student(String firstName, String lastName, String email, String enrollmentDate, Boolean graduated) {
+    public Student(String firstName, String lastName, String email, String dateofbirthStr, LocalDate enrollmentDate, Boolean graduated) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.enrollmentDate = LocalDate.parse(enrollmentDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        this.dateofbirth = LocalDate.parse(dateofbirthStr, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        this.enrollmentDate = enrollmentDate;
         this.graduated = false;
     }
 
@@ -43,7 +45,7 @@ public class Student {
         this.graduated = graduated;
     }
 
-    /* public LocalDate getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateofbirth;
-    } */
+    }
 }

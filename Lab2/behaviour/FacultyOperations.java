@@ -1,5 +1,6 @@
 package Lab2.behaviour;
 
+import java.time.LocalDate;
 import Lab2.models.Faculty;
 import Lab2.models.Student;
 
@@ -17,12 +18,13 @@ public class FacultyOperations {
             String firstName = parts[2];
             String lastName = parts[3];
             String email = parts[4];
-            String enrollmentDateStr = parts[5] + "/" + parts[6] + "/" + parts[7];
+            String dateofbirthStr = parts[5] + "/" + parts[6] + "/" + parts[7];
+            LocalDate enrollmentDate = LocalDate.now();
 
             Faculty faculty = findFacultyByAbbreviation(facultyAbbreviation);
 
             if (faculty != null) {
-                Student student = new Student(firstName, lastName, email, enrollmentDateStr, false);
+                Student student = new Student(firstName, lastName, email, dateofbirthStr, enrollmentDate, false);
 
                 faculty.addStudent(student);
 
@@ -104,6 +106,7 @@ public class FacultyOperations {
                     if (!student.isGraduated()) {
                         System.out.println("Student Name: " + student.getFirstName() + " " + student.getLastName());
                         System.out.println("Student Email: " + student.getEmail());
+                        System.out.println("Date of birth: " + student.getDateOfBirth());
                         System.out.println("Enrollment Date: " + student.getEnrollmentDate() +"\n");
                         enrolledStudentsFound = true;
                     }
@@ -137,6 +140,7 @@ public class FacultyOperations {
                         if (student.isGraduated()) {
                             System.out.println("Student Name: " + student.getFirstName() + " " + student.getLastName());
                             System.out.println("Student Email: " + student.getEmail());
+                            System.out.println("Date of birth: " + student.getDateOfBirth());
                             System.out.println("Enrollment Date: " + student.getEnrollmentDate() +"\n");
                         }
                     }
