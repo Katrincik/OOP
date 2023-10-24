@@ -1,6 +1,6 @@
 package Lab3.src.main.java.repl;
 
-import snapshot.Snapshot;
+import Lab3.src.main.java.snapshot.Snapshot;
 
 /**
  * Read Eval Print Loop.

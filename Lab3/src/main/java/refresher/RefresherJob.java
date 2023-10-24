@@ -1,6 +1,6 @@
 package Lab3.src.main.java.refresher;
 
-import snapshot.Snapshot;
+import Lab3.src.main.java.snapshot.Snapshot;
 
 public class RefresherJob {
   public void run(Snapshot snapshot) {

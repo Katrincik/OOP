@@ -3,9 +3,9 @@
  */
 package Lab3.src.main.java.java_demo;
 
-import refresher.RefresherJob;
-import repl.Repl;
-import snapshot.Snapshot;
+import Lab3.src.main.java.refresher.RefresherJob;
+import Lab3.src.main.java.repl.Repl;
+import Lab3.src.main.java.snapshot.Snapshot;
 
 public class App {
   public static void main(String[] args) {
