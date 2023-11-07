@@ -7,4 +7,6 @@ import Lab3.src.main.java.snapshot.Snapshot;
  */
 public interface Command {
   void execute(String[] args, Snapshot snapshot);
+  //запуск комаманды в зависимости что юзер ввел
+  //юзер сделал инпут и должны выполнить команду
 }
