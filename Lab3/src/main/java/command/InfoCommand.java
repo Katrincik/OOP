@@ -13,7 +13,6 @@ public class InfoCommand implements Command {
     // TODO: implement.
     System.out.println("Execute info");
     String filename = args[1];
-    System.out.println(filename);
 
     if (filename.endsWith(".png") || filename.endsWith(".jpg")) {
       ImageFile file = new ImageFile(filename);
