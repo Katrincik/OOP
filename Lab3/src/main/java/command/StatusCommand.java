@@ -5,7 +5,9 @@ import Lab3.src.main.java.snapshot.Snapshot;
 
 import java.io.IOException;
 import java.nio.file.*;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,9 +17,11 @@ public class StatusCommand implements Command {
     // TODO: implement.
     //what you did (status)
     //difference between last commit and new one (like what that was changed)
+    snapshot.updateLastSnapshotTime();
+
     System.out.println("Execute status");
 
-    System.out.println("Last Snapshot Time: " + LocalDateTime.now());
+    System.out.println("New Snapshot Time: " + LocalDateTime.ofInstant(Instant.ofEpochMilli(snapshot.getLastSnapshotTime()), ZoneId.systemDefault()));
 
     Set<String> currentFiles = new HashSet<>();
     Set<String> lastSnapshotFiles = new HashSet<>(snapshot.getLastSnapshotFiles());
@@ -57,6 +61,7 @@ public class StatusCommand implements Command {
       System.out.println(file + " - Deleted");
     }
 
+    System.out.println();
     // Update the snapshot with the current state of files
     snapshot.setLastSnapshotFiles(currentFiles);
   }
