@@ -43,7 +43,7 @@ public class ProgramFile extends TextFile {
           numberOfClasses++;
         }
         // Method review
-        if (methodPattern.matcher(line).find()) {
+        if (methodPattern.matcher(line).find() || line.contains("def")) {
           numberOfMethods++;
         }
       }
