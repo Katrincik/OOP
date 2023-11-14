@@ -72,6 +72,10 @@ public class Snapshot {
         }
     }
 
+    public void updateLastSnapshotTime() {
+        this.lastSnapshotTime = loadLastSnapshotTime();
+    }
+
     public long getLastSnapshotTime() {
         return lastSnapshotTime;
     }
